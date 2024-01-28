@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assest/logo.png';
+import logo1 from '../assest/logo1.png';
 import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
@@ -20,7 +21,7 @@ const cardItemNumber=useSelector((state)=>state.product.cardItem);
       <div className='  flex items-center h-full justify-between'> 
        <Link to={" "}>
        <div className='h-10'>
-          <img src={logo} alt=""  className='h-full'/>
+          <img src={logo1} alt=""  className='h-full'/>
         </div>
        </Link>
 <div className='flex items-center gap-4 md:gap-7'>

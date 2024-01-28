@@ -2,7 +2,7 @@ const express=require('express');
 const app=express();
 require('dotenv').config();
 const cors=require('cors');
-
+const Stripe=require('stripe');
 const mongoose=require('mongoose');
 const PORT=3400 || 4000;
 
@@ -136,6 +136,60 @@ app.get("/product",async(req,res)=>{
 
 
 })
+
+// payment method implementation
+
+console.log(process.env.STRIPE_SECRET_KEY);
+
+const stripe=new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post('/checkout-payment',async(req,res)=>{
+  // console.log(req.body);
+
+  try{
+    const params={
+submit_type:"pay",
+mode:"payment",
+payment_method_types:['card'],
+billing_address_collection:"auto",
+shipping_options:[{shipping_rate:"shr_1OdZA3SJ6Ij3FdkhiWHq19WM"}],
+
+line_items:req.body.map((item)=>{
+  return{
+    price_data:{
+      currency:"inr",
+      product_data:{
+
+        name:item.name,
+        // image:[item.image],
+ },
+ unit_amount: item.price * 100,
+
+ },
+adjustable_quantity:{
+  enabled:true,
+  minimum:1,
+
+},
+quantity:item.qty,
+
+  }
+
+}) ,
+success_url: `${process.env.FRONTEND_URL}/success`,
+cancel_url:`${process.env.FRONTEND_URL}/cancel`,
+
+}
+const seasion=await stripe.checkout.sessions.create(params);
+console.log(seasion);
+res.status(200).json(seasion.id)
+  }
+  catch(err){
+res.status(err.statusCode || 500).json(err.message);
+  }
+})
+
+
 
 
  
