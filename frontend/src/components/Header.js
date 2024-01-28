@@ -3,6 +3,7 @@ import logo from '../assest/logo.png';
 import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { useSelector } from 'react-redux';
 
 
 function Header() {
@@ -12,7 +13,8 @@ const handleShowmenu=()=>{
   setshowMenu(!showMenu);
 
 }
-console.log(process.env.REACT_APP_ADMIN_EMAIL);
+const cardItemNumber=useSelector((state)=>state.product.cardItem);
+// console.log(process.env.REACT_APP_ADMIN_EMAIL);
   return (
     <div className='fixed shadow-md w-full h-16 px-2 md:px-4  z-50 bg-white' >
       <div className='  flex items-center h-full justify-between'> 
@@ -30,10 +32,12 @@ console.log(process.env.REACT_APP_ADMIN_EMAIL);
 
   </nav>
   <div className='text-2xl relative'>
+    <Link to={"card"}>
   <IoCartOutline />
   <div className='absolute -top-2  -right-1 text-white  bg-red-500 h-4  w-4  m-0  p-0  text-sm rounded-full text-center' >
-0
+{ cardItemNumber.length}
   </div>
+  </Link>
 
   </div>
   <div className=' ' onClick={handleShowmenu}>

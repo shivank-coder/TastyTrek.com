@@ -6,6 +6,7 @@ import { GrNext } from "react-icons/gr";
 
 import Cardfeature from '../components/Cardfeature';
 import Filterproduct from '../components/Filterproduct';
+import Allproduct from '../components/Allproduct';
 function Home() {
   const productData=useSelector((state)=>state.product.productlist
   
@@ -24,35 +25,19 @@ const prevproduct=()=>{
 
 
 const categoryList=[...new Set(productData.map(el=>el.category))]
-console.log(categoryList);
+// console.log(categoryList);
 
 
 
-  console.log(productData);
+  // console.log(productData);
   const homevegitable=productData.filter(e1=>e1.category==='vegitable',[])
-console.log(homevegitable);
+// console.log(homevegitable);
  const homeProductList = Array.isArray(productData) ? productData.slice(0, 4) : [];
-   console.log("homeproductlist"+homeProductList);
+  //  console.log("homeproductlist"+homeProductList);
  
  
  
- const [filterby,setfilterby]=useState("")
  
- const [datafilter,setdatafilter]=useState([])
- 
-useEffect(()=>{
-  setdatafilter(productData);
-},[productData])
-
-
-const handlefilter=(category)=>{
-const filter=productData.filter(e1=>e1.category.toLowerCase()===category.toLowerCase())
-setdatafilter(()=>{
-  return[
-    ...filter
-  ]
-})
-}
 
   return (
     <div className='p-2 md:4'>
@@ -74,6 +59,7 @@ setdatafilter(()=>{
 
      <HomeCard 
      key={el._id}
+     id={el._id}
      image={el.image}
      name={el.name}
      price={el.price}
@@ -103,6 +89,7 @@ setdatafilter(()=>{
   homevegitable.map(e1=>{
     return(<Cardfeature
       key={e1._id}
+      id={e1._id}
       name={e1.name}
       category={e1.category}
       price={e1.price}
@@ -114,54 +101,8 @@ setdatafilter(()=>{
  }
   </div>
 </div>
-<div className='my-7'>
-<h2 className='font-bold text-2xl text-slate-800 mb-4'>Your Product</h2>
 
-
-<div className='flex gap-4 justify-center overflow-scroll scrollbar-none'>
-  {
-    categoryList[0] && categoryList.map(e1=>{
-return(
-  <Filterproduct category={e1} onClick={()=>handlefilter(e1)} />
-
-)
-    })
-  }
-  
-</div>
-
-<div className='flex flex-wrap justify-center gap-3 my-4' >
-  {
-    datafilter.map(e1=>{
-      return(
-        <Cardfeature
-        key={e1._id}
-        image={e1.image}
-        name={e1.name}
-        category={e1.category}
-        price={e1.price}
-
-        
-        
-        />
-
-
-
-
-      )
-    })
-  }
-
-</div>
-
-
-
-
-
-
-
-</div>
-
+<Allproduct  heading={"Your Product"}/>
     </div>
   )
 }

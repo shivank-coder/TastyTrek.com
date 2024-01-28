@@ -17,7 +17,7 @@ function App() {
     })();
   }, [dispatch]);  // Include dispatch in the dependency array
   
-  console.log(productData);
+  // console.log(productData);
 
 
 

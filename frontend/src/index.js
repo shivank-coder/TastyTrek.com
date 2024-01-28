@@ -13,6 +13,7 @@ import Newproduct from './pages/Newproduct';
 import Signup from './pages/Signup';
 import  {store} from './redux/index';
 import { Provider } from 'react-redux';
+import Card from './pages/Card';
 
 
 const router=createBrowserRouter(
@@ -28,6 +29,7 @@ const router=createBrowserRouter(
 
       <Route path='login' element={<Login />}></Route>
       <Route path='signup' element={<Signup />}></Route>
+      <Route path='card' element={<Card />}></Route>
 
     </Route>
   )
